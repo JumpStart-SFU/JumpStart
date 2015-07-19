@@ -68,29 +68,4 @@ function db_drop_table($table) {
   }
 }
 
-/**
- * Reads the table
- */
-function db_read_table($table) {
-  $query = "DESCRIBE $table";
-  $result = $conn->query($query);
-  
-  if (!$result) {
-    die("Database access failed: " . $conn->error);
-  }
-  
-  $rows = $result->num_rows;
-  
-}
-
-/**
- * Updates the database with the new details
- * Assumes input has not been sanitised
- * Returns TRUE if succeeded
- * FALSE if otherwise
- */
-function db_change_field($table, $data) {
-    $id = data['id'];
-}
-
 ?>

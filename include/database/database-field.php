@@ -1,9 +1,28 @@
 <?php
 
 /**
- * Reads from the database and outputs an array of stuff
+ * Reads from a database of users
+ * Describes all the users
  */
-function database_read($table, $id) {
+function db_table_user_describe($table_user, $id) {
+  $query = "SELECT * FROM $table_user";
+  $result = $conn->query($query);
+  
+  if (!$result) {
+    die("Database access failed: " . $conn->error);
+  }
+  
+  $rows = $result->num_rows;
+  
+  // Displaying the table
+  for ($x = 0; $x < $rows; $x++) {
+    
+    
+  }
+  
+}
+  
+  
     return $user;
 }
 
@@ -13,7 +32,14 @@ function database_read($table, $id) {
  * Returns TRUE if succeeded
  * FALSE if otherwise
  */
-function database_insert_user($table, $data) {
+function db_table_user_insert($table, $data) {
+  $query = "INSERT";
+  $result = $conn->query($query);
+  
+  if (!$result) {
+    die("Database access failed: " . $conn->error);
+  }
+
 }
 
 /**
