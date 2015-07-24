@@ -1,7 +1,4 @@
 <?php
-require_once('include/database/database-table.php');
-
-//db_connect();
 
 ?>
 
@@ -18,7 +15,7 @@ require_once('include/database/database-table.php');
     <input type="email" name="email" placeholder="Enter your campus email" /><br/>
     <input type="password" name="password" placeholder="Enter your password" /><br/>
     <a href="register.php"><input type="button" value="Register" /></a>
-    <input type="submit" name="log-in" value="Log in" /><br/>
+    <input type="submit" value="Log in" /><br/>
   </form>
 </body>
 </html>
