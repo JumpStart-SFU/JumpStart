@@ -2,6 +2,7 @@
 /**
  *
  */
+// require_once('/../validate/validate.php'); // why is this not working
 
 /**
  * Connects to the database
@@ -61,16 +62,23 @@ function db_table_user_insert($conn, $table, $data) {
     "password text NOT NULL",
     "fullname text NOT NULL",
     "gender varchar(32) NOT NULL",
-    "PRIMARY KEY (uid)"
+    "interest-1" text",
+    "interest-2" text",
+    "interest-3" text",
+    "PRIMARY KEY (username)"
   )); */
+  
+  print "Inserting data into table $table <br />";
   
   $username = $data['username'];
   $fullname = $data['fullname'];
   $password = $data['password']; // hash this
   $sex = $data['sex'];
+  $interest_1 = $data['interest-1'];
+  $interest_2 = $data['interest-2'];
+  $interest_3 = $data['interest-3'];
   
-  $query = "INSERT INTO $table (username, fullname, password, sex) ";
-  $query .= "VALUES ('$username', '$fullname', '$password', '$sex')";
+  $query = "INSERT INTO $table VALUES ('$username', '$fullname', '$password', '$sex', '$interest_1', '$interest_2', '$interest_3')";
   
   print "Inserting the following query: <br />";
   print "$query <br />";
@@ -78,7 +86,7 @@ function db_table_user_insert($conn, $table, $data) {
   $result = $conn->query($query);
   
   if (!($result)) {
-    die("Database access failed: " . $conn->error);
+    die("Database access failed: " . $conn->error . "<br />");
   }
   
   print ("Insert was successful!");
