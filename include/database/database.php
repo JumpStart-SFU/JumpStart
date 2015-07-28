@@ -2,7 +2,7 @@
 /**
  *
  */
-// require_once('/../validate/validate.php'); // why is this not working
+require_once("include/validate/validate.php"); // why is this not working
 
 /**
  * Connects to the database
@@ -78,7 +78,7 @@ function db_table_user_insert($conn, $table, $data) {
   $interest_2 = $data['interest-2'];
   $interest_3 = $data['interest-3'];
   
-  $query = "INSERT INTO $table VALUES ('$username', '$fullname', '$password', '$sex', '$interest_1', '$interest_2', '$interest_3')";
+  $query = sanitize_MySQL($conn, "INSERT INTO $table VALUES ('$username', '$fullname', '$password', '$sex', '$interest_1', '$interest_2', '$interest_3')");
   
   print "Inserting the following query: <br />";
   print "$query <br />";
@@ -113,4 +113,3 @@ function db_delete_user($conn, $table, $id) {
 }
 
 ?>
-
