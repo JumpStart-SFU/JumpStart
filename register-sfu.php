@@ -2,7 +2,9 @@
 /**
  *
  */
-require_once('include/database/database.php');
+require_once('include/database/database-basic.php');
+require_once('include/database/database-users.php');
+require_once('include/database/validate.php');
 
 print "Entered into register-sfu.php <br />";
 
@@ -15,13 +17,13 @@ if (isset($_POST['username']) &&
   print "Getting info from form <br />";
 
   $data = array(
-    "username" => $_POST['username'],
-    "fullname" => $_POST['fullname'],
-    "password" => $_POST['password'],
-    "sex" => $_POST['sex'],
-    "interest-1" => $_POST['interest-1'],
-    "interest-2" => $_POST['interest-2'],
-    "interest-3" => $_POST['interest-3'],                               
+    "username" => sanitize_MySQL($conn, $_POST['username']),
+    "fullname" => sanitize_MySQL($conn, $_POST['fullname']),
+    "password" => sanitize_MySQL($conn, $_POST['password']),
+    "sex" => sanitize_MySQL($conn, $_POST['sex']),
+    "interest-1" => sanitize_MySQL($conn, $_POST['interest-1']),
+    "interest-2" => sanitize_MySQL($conn, $_POST['interest-2']),
+    "interest-3" => sanitize_MySQL($conn, $_POST['interest-3']),                               
   );
   
   print "inserting into data<br />";

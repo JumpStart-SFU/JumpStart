@@ -3,15 +3,18 @@
  *
  */
 
-require_once('include/database/database.php');
+require_once('include/database/database-basic.php');
+require_once('include/database/database-users.php');
 
 db_connect();
 $activate = TRUE;
 
-$email = $_POST['email'];
-$password = $_POST['password'];
+$email = sanitize_string($_POST['email']);
+$password = sanitize_string($_POST['password']);
 
-
+if (substr($email, -6) === '@sfu.ca') {
+  $username = substr($email, 0, -6);
+}
 
 
 
