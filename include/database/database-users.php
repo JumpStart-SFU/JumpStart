@@ -10,7 +10,7 @@
  * FALSE if otherwise
  */
 function db_table_user_insert($conn, $table, $data) {
-  /*
+  
   db_create_table($conn, $table, array(
     "username varchar(32) NOT NULL",
     "password text NOT NULL",
@@ -21,7 +21,7 @@ function db_table_user_insert($conn, $table, $data) {
     "interest-3 text",
     "PRIMARY KEY (username)",
   ));
-  */
+  
   
   print "Inserting data into table $table <br />";
   

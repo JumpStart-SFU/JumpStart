@@ -27,21 +27,29 @@ function db_connect() {
  */
 function db_create_table($conn, $table, $detail) {
   if ($conn->connect_error) {
-    print ("Something went wrong");
+    print ("Something went wrong<br/>");
+  }
+  
+  if (empty($table)) {
+    print "Empty array!<br/>";
+    
+  }
+  
+  if (empty($detail)) {
+    print ("Query is empty!<br/>");
   }
   
   $query = "CREATE TABLE IF NOT EXISTS $table (";
-  $query .= $detail[$x];
+  $query .= $detail[0];
   
   for ($x = 1; $x < count($detail); $x++) {
     $query .= ", ";
     $query .= $detail[$x];
   }
   $query .= ")";
-  
   $result = $conn->query($query);
   
-  if (!$result) {
+  if (!($result)) {
     die("Database access failed: " . $conn->error);
   }
 }
