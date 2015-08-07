@@ -30,126 +30,100 @@ function db_create_table($conn, $table, $detail) {
     print "Something went wrong with the connection<br/>";
   }
   
-  if (empty($table)) {
-    print "Empty array!<br/>";
-    
-  }
+  if (!(empty($table) && empty($detail))) {
+    $query = "CREATE TABLE IF NOT EXISTS $table (";
+    $query .= $detail[0]; 
   
-  if (empty($detail)) {
-    print "Query is empty!<br/>";
-  }
-  
-  $query = "CREATE TABLE IF NOT EXISTS $table (";
-  $query .= $detail[0];
-  
-  for ($x = 1; $x < count($detail); $x++) {
-    $query .= ", ";
-    $query .= $detail[$x];
-  }
-  $query .= ")";
-  $result = $conn->query($query);
-  
-  if (!($result)) {
-    die("Database access failed: " . $conn->error);
-  }
-}
-
-/**
- *
- */
-function db_insert_entry($conn, $table, $data) {
-  if ($conn->connect_error) {
-    print "Something went wrong with the connection<br/>";
-  }
-  
-  if (empty($table)) {
-    print "Empty array!<br/>";
-    
-  }
-  
-  if (empty($detail)) {
-    print "Query is empty!<br/>";
-  }
-  
-  $query = "INSERT INTO $table $column VALUES $data";
-  $result = $conn->query($query);
-  
-  if (!$result) {
-    die("Database access failed: " . $conn->error);
-  }
-  
-  // $data is an array
-  if (is_array($data)) {
-    $query = "INSERT INTO $table VALUES ('$data[0]";
-    
-    for ($x = 1; $x < count($data); $x++) {
+    for ($x = 1; $x < count($detail); $x++) {
       $query .= ", ";
       $query .= $detail[$x];
     }
+    
     $query .= ")";
-  }
+    $result = $conn->query($query);
   
-  // $data is a variable
-  else {
-    $query = "INSERT INTO $table VALUES ('$data');"
-  }
-  
-  $result = $conn->query($query);
-  
-  if (!($result)) {
-    die("Database access failed: " . $conn->error);
+    if (!($result)) {
+      die("Database access failed: " . $conn->error);
+    }
   }
 }
 
 /**
- * Updates the table
+ * Inserts data into table
  */
-function db_update_entry($conn, $table, $new_data, $old_data) {
+function db_insert($conn, $table, $data) {
   if ($conn->connect_error) {
     print "Something went wrong with the connection<br/>";
   }
   
-  if (empty($table)) {
-    print "Empty table<br/>";
+  if (!(empty($table) && empty($data))) {
+    $query = "INSERT INTO $table $column VALUES $data";
+    $result = $conn->query($query);
+  
+    if (!$result) {
+      die("Database access failed: " . $conn->error);
+    }
+  
+    // $data is an array
+    if (is_array($data)) {
+      $query = "INSERT INTO $table VALUES ('$data[0]";
     
-  }
+      for ($x = 1; $x < count($data); $x++) {
+        $query .= "', '";
+        $query .= $detail[$x];
+      }
+      $query .= "')";
+    }
   
-  if (empty($detail)) {
-    print "Query is empty!<br/>";
-  }
+    // $data is a variable
+    else {
+      $query = "INSERT INTO $table VALUES ('$data')";
+    }
   
-  $query = "UPDATE $table SET $new_data WHERE $old_data";
-  $result = $conn->query($query);
+    $result = $conn->query($query);
   
-  if (!($result)) {
-    die("Database access failed: " . $conn->error);
+    if (!($result)) {
+      die("Database access failed: " . $conn->error);
+    }
   }
 }
 
 /**
- *
+ * Updates the data in the table
  */
-function db_delete_entry($conn, $table, $column, $value) {
+function db_update($conn, $table, $new_data, $old_data) {
   if ($conn->connect_error) {
-    print ("Something went wrong");
+    print "Something went wrong with the connection<br/>";
   }
   
-  if (empty($table)) {
-    print "Empty table!<br/>";
-    
-  }
+  if (!(empty($table) && empty($new_data) && empty($old_data))) {
+    $query = "UPDATE $table SET $new_data WHERE $old_data";
+    $result = $conn->query($query);
   
-  if (empty($column)) {
-    print '$column is empty!<br/>';
-  }
-  
-  $query = "DELETE FROM $table WHERE ";
-  $query .= "$column = $value";
-  $result = $conn->query($query);
-  
-  if (!$result) {
-    die("Database access failed: " . $conn->error);
+    if (!($result)) {
+      die("Database access failed: " . $conn->error);
+    }
   }
 }
+
+/**
+ * Deletes data
+ */
+function db_delete($conn, $table, $column, $value) {
+  if ($conn->connect_error) {
+    print "Something went wrong with the connection<br/>";
+  }
+  
+  if (!(empty($table) && empty($column) && empty($value))) {
+    $query = "DELETE FROM $table WHERE ";
+    $query .= "$column = $value";
+    $result = $conn->query($query);
+  
+    if (!($result)) {
+      die("Database access failed: " . $conn->error);
+    }
+  }
+}
+
 
 ?>

@@ -8,10 +8,9 @@
  * Setup website with assumption on blank state.
  */
 function initialise_JumpStart() {
-  
   require_once('include/database/database-basic.php');
   $conn = db_connect();
-  
+
   // Create table for SFU
   db_create_table($conn, 'users_sfu', array(
     "username varchar(32) UNIQUE NOT NULL",
@@ -44,7 +43,6 @@ function initialise_JumpStart() {
     "access_code varchar(12) NOT NULL",
     "PRIMARY KEY (username)",
   ));
-  
 }
 
 ?>

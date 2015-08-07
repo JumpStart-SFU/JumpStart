@@ -10,21 +10,6 @@
  * FALSE if otherwise
  */
 function db_table_user_insert($conn, $table, $data) {
-  
-  db_create_table($conn, $table, array(
-    "username varchar(32) NOT NULL",
-    "password text NOT NULL",
-    "fullname text NOT NULL",
-    "gender varchar(32) NOT NULL",
-    "interest-1 text",
-    "interest-2 text",
-    "interest-3 text",
-    "PRIMARY KEY (username)",
-  ));
-  
-  
-  print "Inserting data into table $table <br />";
-  
   $username = $data['username'];
   $fullname = $data['fullname'];
   $password = $data['password']; // hash this
@@ -40,9 +25,6 @@ function db_table_user_insert($conn, $table, $data) {
   if (!($result)) {
     die("Database access failed: " . $conn->error . "<br />");
   }
-  
-  print ("Insert was successful!");
-
 }
 
 /**
@@ -51,7 +33,7 @@ function db_table_user_insert($conn, $table, $data) {
  * Returns TRUE if succeeded
  * FALSE if otherwise
  */
-function db_update_user($conn, $table, $data) {
+function db_table_user_update($conn, $table, $old_data, $new_data) {
 }
 
 /**
@@ -59,7 +41,7 @@ function db_update_user($conn, $table, $data) {
  * Returns TRUE if succeeded
  * FALSE if otherwise
  */
-function db_delete_user($conn, $table, $username) {
+function db_table_user_delete($conn, $table, $username) {
 }
 
 ?>
