@@ -6,16 +6,13 @@ require_once('include/database/database-basic.php');
 require_once('include/database/database-users.php');
 require_once('include/database/validate.php');
 
-print "Entered into register-sfu.php <br />";
-
 $conn = db_connect();
 
 if (isset($_POST['username']) &&
     isset($_POST['fullname']) &&
     isset($_POST['password']) &&
     isset($_POST['sex'])) {
-  print "Getting info from form <br />";
-
+  
   $data = array(
     "username" => sanitize_MySQL($conn, $_POST['username']),
     "fullname" => sanitize_MySQL($conn, $_POST['fullname']),
@@ -25,9 +22,6 @@ if (isset($_POST['username']) &&
     "interest-2" => sanitize_MySQL($conn, $_POST['interest-2']),
     "interest-3" => sanitize_MySQL($conn, $_POST['interest-3']),                               
   );
-  
-  print "inserting into data<br />";
-
   db_table_user_insert($conn, 'users_sfu', $data);
 }
 

@@ -12,7 +12,7 @@
 function db_table_user_insert($conn, $table, $data) {
   $username = $data['username'];
   $fullname = $data['fullname'];
-  $password = $data['password']; // hash this
+  $password = password_hash($data['password'], PASSWORD_BCRYPT); // hash this
   $sex = $data['sex'];
   $interest_1 = $data['interest-1'];
   $interest_2 = $data['interest-2'];
