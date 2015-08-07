@@ -35,9 +35,6 @@ function db_table_user_insert($conn, $table, $data) {
   
   $query = sanitize_MySQL($conn, "INSERT INTO $table VALUES ('$username', '$fullname', '$password', '$sex', '$interest_1', '$interest_2', '$interest_3')");
   
-  print "Inserting the following query: <br />";
-  print "$query <br />";
-  
   $result = $conn->query($query);
   
   if (!($result)) {
