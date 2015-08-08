@@ -1,4 +1,5 @@
-<html lang = en>
+<!DOCTYPE html>
+<html>
 <head>
     <!-- META STUFF -->
     <title>JumpStart | Register</title>
