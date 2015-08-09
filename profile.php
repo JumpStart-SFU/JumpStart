@@ -10,27 +10,23 @@ require_once('include/database/validate.php');
 $conn = db_connect();
 $activate = TRUE;
 
+$username = NULL;
 $email = sanitize_string($_POST['email']);
 $password = sanitize_MySQL($conn, $_POST['password']);
 
-if (substr($email, -6) === '@sfu.ca') {
-  $username = sanitize_MySQL($conn, substr($email, 0, -6));
+if (substr($email, -7) === '@sfu.ca') {
+  $username = sanitize_MySQL($conn, substr($email, 0, -7));
 }
 
-$result = db_table_user_read($conn, 'users_sfu', $password);
+$result = db_table_user_read($conn, 'users_sfu', $username, $password);
 
 if ($result) {
   var_dump($result);
-  print $result->username;
-  
-  print $result->username;
 }
 
 else {
   print 'no result';
 }
-
-
 
 // Verify activation
 /*

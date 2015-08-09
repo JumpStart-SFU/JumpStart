@@ -17,7 +17,7 @@ function db_table_user_insert($conn, $table, $data) {
   if (!(empty($table) && empty($data))) {
     $username = $data['username'];
     $fullname = $data['fullname'];
-    $password = password_hash($data['password'], PASSWORD_BCRYPT);
+    $password = crypt($data['password'], $username);
     $sex = $data['sex'];
     $interest_1 = $data['interest-1'];
     $interest_2 = $data['interest-2'];
@@ -42,18 +42,17 @@ function db_table_user_read($conn, $table, $username, $password) {
     print "Something went wrong with the connection<br/>";
   }
   
-  if (!(empty($table) && empty($user_data) && empty($column))) {
-    $password = password_hash($password, PASSWORD_BCRYPT);
+  $result = NULL;
+  
+  if (!(empty($table) && empty($username) && empty($password))) {
+    $password = crypt($password, $username);
     
     $query = "SELECT username, fullname, sex, interest_1, interest_2, interest_3 ";
     $query .= "FROM $table WHERE username = '$username' AND password = '$password'";
-    $result = NULL;
     $result = $conn->query($query);
-    
-    var_dump($query);
-
-    return $result;
   }
+  
+  return $result;
 }
 
 function db_table_user_readAll($conn, $table, $username) {
