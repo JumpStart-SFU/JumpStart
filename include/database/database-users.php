@@ -48,8 +48,10 @@ function db_table_user_read($conn, $table, $username, $password) {
     $password = crypt($password, $username);
     
     $query = "SELECT username, fullname, sex, interest_1, interest_2, interest_3 ";
-    $query .= "FROM $table WHERE username = '$username' AND password = '$password'";
-    $result = $conn->query($query);
+    $query .= "FROM $table WHERE (username = '$username' AND password = '$password')";
+    $result = $conn
+      ->query($query)
+      ->fetch_assoc();
   }
   
   return $result;
