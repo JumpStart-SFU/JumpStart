@@ -34,7 +34,7 @@ if (isset($_POST['username']) ||
     $data = array(
       "username" => sanitize_MySQL($conn, $username),
       "fullname" => sanitize_MySQL($conn, $fullname),
-      "password" => sanitize_MySQL($conn, $password_1),
+      "password" => sanitize_MySQL($conn, crypt($password_1, 'moneys')),
       "sex" => sanitize_MySQL($conn, $sex),
       "interest-1" => sanitize_MySQL($conn, $interest_1),
       "interest-2" => sanitize_MySQL($conn, $interest_2),

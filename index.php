@@ -11,13 +11,39 @@ require_once('include/database/validate.php');
 initialise_JumpStart();
 $conn = db_connect();
 
+$activate = FALSE;
+$username = NULL;
+$table = NULL;
+$email = NULL;
+$password = NULL;
+
+
+if (isset($_COOKIE['username']) && isset($_COOKIE['password'])) {
+  $username = $_COOKIE['username'];
+  $password = $_COOKIE['password'];
+  $table = $_COOKIE['table'];
+  
+  $result = db_table_user_read($conn, $table, $username, $password);
+  
+  if ($result) {
+    header("Location: profile.php");
+    die();
+  }
+  
+  // Destroy the cookies
+  else {
+    setcookie('username', $username, time() - 2592000, '/');
+    setcookie('password', $password, time() - 2592000, '/');
+    setcookie('table', $table, time() - 2592000, '/');
+    
+  }
+}
+
+
 // Form was submitted
 if (isset($_POST['email']) && isset($_POST['password'])) {
-  $activate = FALSE;
-  $username = NULL;
-  $table = NULL;
   $email = sanitize_MySQL($conn, $_POST['email']);
-  $password = sanitize_MySQL($conn, $_POST['password']);
+  $password = crypt(sanitize_MySQL($conn, $_POST['password']), 'moneys'); // Encrypt password
 
   if (substr($email, -7) === '@sfu.ca') {
     $username = sanitize_MySQL($conn, substr($email, 0, -7));
@@ -37,16 +63,10 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
   
   $result = db_table_user_read($conn, $table, $username, $password);
   
-  // Match found
   if ($result) {
-    /*
-    if (!($activate)) {
-  
-      // redirect to activation page
-      header("Location: activate.php");
-      exit;
-    }
-    */
+    setcookie('username', $username, NULL, '/');
+    setcookie('password', $password, NULL, '/');
+    setcookie('table', $table, NULL, '/');
     
     // redirect to the user's profile
     header("Location: profile.php");
@@ -57,7 +77,6 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
   else {
     print "Incorrect username or password!";
   }
-  
 }
 
 ?>
