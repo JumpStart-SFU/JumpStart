@@ -125,5 +125,6 @@ if (isset($_POST['username']) ||
       <br />
       <input type="submit" value="Register" />
     </form>
+    <?php include_once 'include/partial/footer.php'; ?>
   </body>
 </html>

@@ -11,7 +11,7 @@
     <a href="index.php">Home</a>
   </div>
   <div class="search">
-    <a href="">Search</a>
+    <a href="search.php">Search</a>
   </div>
   <div class="message">
     <a href="">Message</a>

@@ -92,7 +92,8 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
   <link rel="stylesheet" type="text/css" href="css/index.css" />
 </head>
 <body>
-  <div class="header">
+  <div class="homepage-main-logo">
+    <img src="" />
   </div>
   <div class="form">
     <form action="index.php" method="post">
@@ -100,7 +101,8 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
       <input type="password" name="password" placeholder="Enter your password" /><br/>
       <a href="register.php"><input type="button" value="Register" /></a>
       <input type="submit" value="Log in" /><br/>
-  </form>
+    </form>
   </div>
+  <?php include_once 'include/partial/footer.php'; ?>
 </body>
 </html>

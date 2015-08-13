@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Profile page
+ * Search page
  */
 
 require_once('include/database/database-basic.php');
@@ -16,7 +16,7 @@ $conn = db_connect();
 <head>
   <!-- META STUFF -->
   <meta name="viewport" content="width-device-width, initial-scale=1" />
-  <title><?php //echo ($name) ?> | JumpStart</title>
+  <title>Search | JumpStart</title>
   <!-- CSS Stuff -->
   <link rel="stylesheet" type="text/css" href="css/index.css" />
 </head>
