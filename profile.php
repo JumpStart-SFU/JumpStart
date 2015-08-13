@@ -1,42 +1,26 @@
 <?php
 /**
- *
+ * @file
+ * Profile page
  */
 
 require_once('include/database/database-basic.php');
-require_once('include/database/database-users.php');
+require_once('include/partial/header.php');
+require_once('include/partial/sidebar.php');
 
-db_connect();
-$activate = TRUE;
-
-$email = sanitize_string($_POST['email']);
-$password = sanitize_string($_POST['password']);
-
-if (substr($email, -6) === '@sfu.ca') {
-  $username = substr($email, 0, -6);
-}
-
-
-
-
-
-// Verify activation
-if (!($activate)) {
-  
-  // redirect to activation page
-  header("Location: activate.php");
-  exit;
-}
+$conn = db_connect();
 
 ?>
-
-<html lang=en>
+<!DOCTYPE html>
+<html>
 <head>
-    <!-- META STUFF -->
-    <title><?php //echo ($name) ?></title>
-    <!-- CSS Stuff -->
+  <!-- META STUFF -->
+  <meta name="viewport" content="width-device-width, initial-scale=1" />
+  <title><?php //echo ($name) ?></title>
+  <!-- CSS Stuff -->
+  <link rel="stylesheet" type="text/css" href="css/index.css" />
 </head>
 <body>
-  <p>HelloWorld</p>
+  <p>Hello World!</p>
 </body>
 </html>

@@ -60,10 +60,6 @@ function db_insert($conn, $table, $data) {
     $query = "INSERT INTO $table $column VALUES $data";
     $result = $conn->query($query);
   
-    if (!$result) {
-      die("Database access failed: " . $conn->error);
-    }
-  
     // $data is an array
     if (is_array($data)) {
       $query = "INSERT INTO $table VALUES ('$data[0]";
