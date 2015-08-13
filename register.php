@@ -70,7 +70,10 @@ if (isset($_POST['username']) ||
 <html>
   <head>
     <!-- META STUFF -->
+    <meta name="viewport" content="width-device-width, initial-scale=1" />
     <title>JumpStart | Register</title>
+    <!-- CSS Stuff -->
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
   </head>
   <script src="js/register.js">
     function validate(form) {
