@@ -25,6 +25,7 @@ if (isset($_COOKIE['username']) && isset($_COOKIE['password'])) {
   
   $result = db_table_user_read($conn, $table, $username, $password);
   
+  // Redirects to profile
   if ($result) {
     header("Location: profile.php");
     die();
@@ -35,7 +36,6 @@ if (isset($_COOKIE['username']) && isset($_COOKIE['password'])) {
     setcookie('username', $username, time() - 2592000, '/');
     setcookie('password', $password, time() - 2592000, '/');
     setcookie('table', $table, time() - 2592000, '/');
-    
   }
 }
 

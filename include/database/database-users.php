@@ -23,7 +23,8 @@ function db_table_user_insert($conn, $table, $data) {
     $interest_2 = $data['interest-2'];
     $interest_3 = $data['interest-3'];
   
-    $query = sanitize_MySQL($conn, "INSERT INTO $table VALUES ('$username', '$fullname', '$password', '$sex', '$interest_1', '$interest_2', '$interest_3')");
+    $query = sanitize_MySQL($conn, "INSERT INTO $table (username, fullname, password, sex, interest_1, interest_2, interest_3) ");
+    $query .= sanitize_MySQL($conn, "VALUES ('$username', '$fullname', '$password', '$sex', '$interest_1', '$interest_2', '$interest_3')");
   
     $result = $conn->query($query);
   

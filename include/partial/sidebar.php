@@ -16,7 +16,10 @@
   <div class="message">
     <a href="">Message</a>
   </div>
-  <div class="settings.php">
+  <div class="settings">
     <a href="">Settings</a>
+  </div>
+  <div class="sign-out">
+    <a href="sign_out.php">Sign Out</a>
   </div>
 </div>

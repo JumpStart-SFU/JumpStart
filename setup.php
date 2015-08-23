@@ -13,6 +13,7 @@ function initialise_JumpStart() {
 
   // Create table for SFU
   db_create_table($conn, 'users_sfu', array(
+    "uid int NOT NULL AUTO_INCREMENT",
     "username varchar(32) UNIQUE NOT NULL",
     "fullname text NOT NULL",
     "password varchar(60) NOT NULL",
@@ -20,11 +21,12 @@ function initialise_JumpStart() {
     "interest_1 text",
     "interest_2 text",
     "interest_3 text",
-    "PRIMARY KEY (username)",
+    "PRIMARY KEY (uid)",
   ));
   
   // Create table for UBC
   db_create_table($conn, 'users_ubc', array(
+    "uid int NOT NULL AUTO_INCREMENT",
     "username varchar(32) UNIQUE NOT NULL",
     "fullname text NOT NULL",
     "password varchar(60) NOT NULL",
@@ -32,11 +34,12 @@ function initialise_JumpStart() {
     "interest_1 text",
     "interest_2 text",
     "interest_3 text",
-    "PRIMARY KEY (username)",
+    "PRIMARY KEY (uid)",
   ));
   
   // Users for activation
   db_create_table($conn, 'users_activate', array(
+    "uid int UNIQUE NOT NULL AUTO_INCREMENT",
     "username varchar(32) NOT NULL",
     "password varchar(60) NOT NULL",
     "table_name varchar(32) NOT NULL",
