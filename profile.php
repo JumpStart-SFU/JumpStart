@@ -14,7 +14,7 @@ $conn = db_connect();
 <head>
   <!-- META STUFF -->
   <meta name="viewport" content="width-device-width, initial-scale=1" />
-  <title><?php //echo ($name) ?> | JumpStart</title>
+  <title><?php print $_COOKIE['username']; ?> | JumpStart</title>
   <!-- CSS Stuff -->
   <link rel="stylesheet" type="text/css" href="css/index.css" />
 </head>

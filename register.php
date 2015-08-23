@@ -14,7 +14,7 @@ if (isset($_POST['username']) ||
     isset($_POST['fullname']) ||
     isset($_POST['password_1']) ||
     isset($_POST['sex'])) {
-  $table = 'users_sfu_burnaby';
+  $table = 'users_sfu';
   $username = $_POST['username'];
   $fullname = $_POST['fullname'];
   $password_1 = $_POST['password_1'];
@@ -99,6 +99,7 @@ if (isset($_POST['username']) ||
       <option label="SFU" value="sfu" selected>Simon Fraser University</option>
       <option label="UBC" value="ubc">University of British Columbia</option>
     </select>
+    
     <br />
     <?php print $fail; ?>
     <form action="register.php" method="post" onSubmit="return validate(this)">

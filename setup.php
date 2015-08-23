@@ -23,17 +23,17 @@ function initialise_JumpStart() {
   
   $campus_array = array(
     'SFU' => array(
-      'machine_name' => 'users_sfu_burnaby',
-      'name' => 'Simon Fraser University Burnaby',
-      'label' => 'SFU Burnaby',
-      'location' => 'Burnaby, BC, Canada',
+      'machine_name' => 'users_sfu',
+      'name' => 'Simon Fraser University',
+      'label' => 'SFU',
+      'location' => 'BC, Canada',
     ),
     
-    'UBC' => array(
-      'machine_name' => 'users_ubc_vancouver',
-      'name' => 'University of British Columbia Vancouver',
-      'label' => 'UBC Vancouver',
-      'location' => 'Vancouver, BC, Canada',
+    'UBC Vancouver' => array(
+      'machine_name' => 'users_ubc',
+      'name' => 'University of British Columbia',
+      'label' => 'UBC',
+      'location' => 'BC, Canada',
     ),
   );
   
