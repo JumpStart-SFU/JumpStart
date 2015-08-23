@@ -10,32 +10,50 @@
 function initialise_JumpStart() {
   require_once('include/database/database-basic.php');
   $conn = db_connect();
-
-  // Create table for SFU
-  db_create_table($conn, 'users_sfu', array(
-    "uid int NOT NULL AUTO_INCREMENT",
-    "username varchar(32) UNIQUE NOT NULL",
-    "fullname text NOT NULL",
-    "password varchar(60) NOT NULL",
-    "sex varchar(8) NOT NULL",
-    "interest_1 text",
-    "interest_2 text",
-    "interest_3 text",
-    "PRIMARY KEY (uid)",
+  
+  // Create table to index various tables
+  db_create_table($conn, 'table_campus', array(
+    "machine_name varchar(64)",
+    "name varchar(32) NOT NULL",
+    "label varchar(16) NOT NULL",
+    "location text NOT NULL",
+    "tid int NOT NULL AUTO_INCREMENT",
+    "PRIMARY KEY (tid)"
   ));
   
-  // Create table for UBC
-  db_create_table($conn, 'users_ubc', array(
-    "uid int NOT NULL AUTO_INCREMENT",
-    "username varchar(32) UNIQUE NOT NULL",
-    "fullname text NOT NULL",
-    "password varchar(60) NOT NULL",
-    "sex varchar(8) NOT NULL",
-    "interest_1 text",
-    "interest_2 text",
-    "interest_3 text",
-    "PRIMARY KEY (uid)",
-  ));
+  $campus_array = array(
+    'SFU' => array(
+      'machine_name' => 'users_sfu_burnaby',
+      'name' => 'Simon Fraser University Burnaby',
+      'label' => 'SFU Burnaby',
+      'location' => 'Burnaby, BC, Canada',
+    ),
+    
+    'UBC' => array(
+      'machine_name' => 'users_ubc_vancouver',
+      'name' => 'University of British Columbia Vancouver',
+      'label' => 'UBC Vancouver',
+      'location' => 'Vancouver, BC, Canada',
+    ),
+  );
+  
+  foreach ($campus_array as $campus) {
+    db_insert($conn, 'table_campus', $campus, array(
+      'machine_name', 'name', 'label', 'location',
+    ));
+    
+    db_create_table($conn, $campus['machine_name'], array(
+      "uid int NOT NULL AUTO_INCREMENT",
+      "username varchar(32) UNIQUE NOT NULL",
+      "fullname text NOT NULL",
+      "password varchar(60) NOT NULL",
+      "sex varchar(8) NOT NULL",
+      "interest_1 text",
+      "interest_2 text",
+      "interest_3 text",
+      "PRIMARY KEY (uid)",
+    ));
+  }
   
   // Users for activation
   db_create_table($conn, 'users_activate', array(

@@ -51,33 +51,44 @@ function db_create_table($conn, $table, $detail) {
 /**
  * Inserts data into table
  */
-function db_insert($conn, $table, $data) {
+function db_insert($conn, $table, $data, $column = NULL) {
   if ($conn->connect_error) {
     print "Something went wrong with the connection<br/>";
   }
   
   if (!(empty($table) && empty($data))) {
-    $query = "INSERT INTO $table $column VALUES $data";
-    $result = $conn->query($query);
-  
+    $query = "INSERT INTO $table ";
+    
+    // $column is an array
+    if (is_array($column)) {
+      $query .= "(";
+      
+      foreach ($column as $entry) {
+        $query .= "$entry, ";
+      }
+      $query = trim($query, ', ') . ") ";
+    }
+    
+    else {
+      $query .= "$column ";
+    }
+    
     // $data is an array
     if (is_array($data)) {
-      $query = "INSERT INTO $table VALUES ('$data[0]";
-    
-      for ($x = 1; $x < count($data); $x++) {
-        $query .= "', '";
-        $query .= $detail[$x];
+      $query .= "VALUES (";
+      
+      foreach ($data as $entry) {
+        $query .= "'$entry', ";
       }
-      $query .= "')";
+      $query = trim($query, ', ') . ")";
     }
-  
-    // $data is a variable
+    
     else {
-      $query = "INSERT INTO $table VALUES ('$data')";
+      $query .= "VALUES ('$data')";
+      $query = rtrim($query, ",");
     }
-  
+    
     $result = $conn->query($query);
-  
     if (!($result)) {
       die("Database access failed: " . $conn->error);
     }

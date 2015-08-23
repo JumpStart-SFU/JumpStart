@@ -14,7 +14,7 @@ if (isset($_POST['username']) ||
     isset($_POST['fullname']) ||
     isset($_POST['password_1']) ||
     isset($_POST['sex'])) {
-  $table = 'users_sfu';
+  $table = 'users_sfu_burnaby';
   $username = $_POST['username'];
   $fullname = $_POST['fullname'];
   $password_1 = $_POST['password_1'];
