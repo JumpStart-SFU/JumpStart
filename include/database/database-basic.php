@@ -134,6 +134,53 @@ function db_delete($conn, $table, $column, $value) {
 }
 
 /**
+ * Gets the data from the database if there are any specified
+ *
+ * If no data is found, return FALSE;
+ *
+ */
+function db_read($conn, $table, $column = NULL, $value = NULL, $select = NULL) {
+  if ($conn->connect_error) {
+    print "Something went wrong with the connection<br/>";
+  }
+  
+  elseif (count($column) != count($value)) {
+    print '$column and $value does not have the same dimensions<br/>';
+  }
+  
+  if ($select == NULL) {
+    $select = '*';
+  }
+  
+  $query = "SELECT $select FROM `$table`";
+  
+  if ($column != NULL && $value != NULL) {
+    // $column and $value are arrays
+    if (is_array($column) && is_array($value)) {
+      for ($x = 0; $x < count($column); $x++) {
+        $query .= " $column[$x] = '$value[$x]' AND";
+      }
+      
+      $query = rtrim($query, ' AND');
+    }
+    
+    else {
+      $query .= " $column = '$value'";
+    }
+  }
+  
+  $result = $conn->query($query);
+  
+  if ($result->num_rows > 0) {
+    return $result;
+  }
+  
+  else {
+    return FALSE;
+  }
+}
+
+/**
  * Returns TRUE if there is a duplicate
  */
 function db_check_duplicate($conn, $table, $data, $column) {
