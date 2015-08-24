@@ -51,46 +51,47 @@ function db_create_table($conn, $table, $detail) {
 /**
  * Inserts data into table
  */
-function db_insert($conn, $table, $data, $column = NULL) {
+function db_insert($conn, $table, $data, $column = NULL, $isRepeat = TRUE) {
   if ($conn->connect_error) {
     print "Something went wrong with the connection<br/>";
   }
-  
+
   if (!(empty($table) && empty($data))) {
-    $query = "INSERT INTO $table ";
+    if ($isRepeat == TRUE || !(db_check_duplicate($conn, $table, current($data), current($column)))) {
+      $query = "INSERT INTO $table ";
     
-    // $column is an array
-    if (is_array($column)) {
-      $query .= "(";
+      // $column is an array
+      if (is_array($column)) {
+        $query .= "(";
       
-      foreach ($column as $entry) {
-        $query .= "$entry, ";
+        foreach ($column as $entry) {
+          $query .= "$entry, ";
+        }
+        $query = trim($query, ', ') . ") ";
       }
-      $query = trim($query, ', ') . ") ";
-    }
     
-    else {
-      $query .= "$column ";
-    }
-    
-    // $data is an array
-    if (is_array($data)) {
-      $query .= "VALUES (";
-      
-      foreach ($data as $entry) {
-        $query .= "'$entry', ";
+      else {
+        $query .= "$column ";
       }
-      $query = trim($query, ', ') . ")";
-    }
     
-    else {
-      $query .= "VALUES ('$data')";
-      $query = rtrim($query, ",");
-    }
+      // $data is an array
+      if (is_array($data)) {
+        $query .= "VALUES (";
+        
+        foreach ($data as $entry) {
+          $query .= "'$entry', ";
+        }
+        $query = trim($query, ', ') . ")";
+      }
     
-    $result = $conn->query($query);
-    if (!($result)) {
-      die("Database access failed: " . $conn->error);
+      else {
+        $query .= "VALUES ('$data')";
+      }
+    
+      $result = $conn->query($query);
+      if (!($result)) {
+        die("Database access failed: " . $conn->error);
+      }
     }
   }
 }
@@ -132,5 +133,24 @@ function db_delete($conn, $table, $column, $value) {
   }
 }
 
+/**
+ * Returns TRUE if there is a duplicate
+ */
+function db_check_duplicate($conn, $table, $data, $column) {
+  if ($conn->connect_error) {
+    print "Something went wrong with the connection<br/>";
+  }
+  
+  $query = "SELECT id FROM `$table` WHERE $column = '$data'";
+  $result = $conn->query($query);
+  
+  if ($result->num_rows > 0) {
+    return TRUE;
+  }
+  
+  else {
+    return FALSE;
+  }
+}
 
 ?>

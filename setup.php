@@ -17,8 +17,8 @@ function initialise_JumpStart() {
     "name varchar(32) NOT NULL",
     "label varchar(16) NOT NULL",
     "location text NOT NULL",
-    "tid int NOT NULL AUTO_INCREMENT",
-    "PRIMARY KEY (tid)"
+    "id int NOT NULL AUTO_INCREMENT",
+    "PRIMARY KEY (id)"
   ));
   
   $campus_array = array(
@@ -29,7 +29,7 @@ function initialise_JumpStart() {
       'location' => 'BC, Canada',
     ),
     
-    'UBC Vancouver' => array(
+    'UBC' => array(
       'machine_name' => 'users_ubc',
       'name' => 'University of British Columbia',
       'label' => 'UBC',
@@ -40,10 +40,10 @@ function initialise_JumpStart() {
   foreach ($campus_array as $campus) {
     db_insert($conn, 'table_campus', $campus, array(
       'machine_name', 'name', 'label', 'location',
-    ));
+    ), FALSE);
     
     db_create_table($conn, $campus['machine_name'], array(
-      "uid int NOT NULL AUTO_INCREMENT",
+      "id int NOT NULL AUTO_INCREMENT",
       "username varchar(32) UNIQUE NOT NULL",
       "fullname text NOT NULL",
       "password varchar(60) NOT NULL",
@@ -51,13 +51,13 @@ function initialise_JumpStart() {
       "interest_1 text",
       "interest_2 text",
       "interest_3 text",
-      "PRIMARY KEY (uid)",
+      "PRIMARY KEY (id)",
     ));
   }
   
   // Users for activation
   db_create_table($conn, 'users_activate', array(
-    "uid int UNIQUE NOT NULL AUTO_INCREMENT",
+    "id int UNIQUE NOT NULL AUTO_INCREMENT",
     "username varchar(32) NOT NULL",
     "password varchar(60) NOT NULL",
     "table_name varchar(32) NOT NULL",
