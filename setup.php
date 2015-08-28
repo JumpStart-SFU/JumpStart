@@ -55,6 +55,12 @@ function initialise_JumpStart() {
     ));
   }
   
+  $campus_faculty = array(
+    'SFU' => array(
+      'Beedie School of Business',
+      'Faculty of Arts',
+  );
+  
   // Users for activation
   db_create_table($conn, 'users_activate', array(
     "id int UNIQUE NOT NULL AUTO_INCREMENT",

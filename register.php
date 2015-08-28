@@ -100,7 +100,7 @@ if (isset($_POST['username']) ||
       <option label="UBC" value="ubc">University of British Columbia</option>
     </select>
     
-    <br />
+    <br/>
     <?php print $fail; ?>
     <form action="register.php" method="post" onSubmit="return validate(this)">
       <fieldset>
@@ -111,20 +111,42 @@ if (isset($_POST['username']) ||
         <p>Re-enter your password</p>
         <input type="password" name="password_2" placeholder="Re-enter your password" /><br/>
         <p>Enter full name</p>
-        <input type="text" name="fullname" placeholder="John Adam" /><br />
+        <input type="text" name="fullname" placeholder="John Adam" /><br/>
         <p>Enter your gender</p>
-        <input type="radio" name="sex" value="Male" />Male <br />
+        <input type="radio" name="sex" value="Male" />Male <br/>
         <input type="radio" name="sex" value="Female" />Female <br/>
         <input type="radio" name="sex" value="Other" />Other <br/>
       </fieldset>
       <fieldset>
+        <p>What is your faculty?</p>
+        <option>
+          <select></select>
+        </option>
+        
+        <p>What is your concentration></p>
+        <option>
+          <select></select>
+        </option>
+        
+        <p>What year are you in?</p>
+        <select>
+          <option>1st Year</option>
+          <option>2nd Year</option>
+          <option>3rd Year</option>
+          <option>4th Year</option>
+          <option>5th Year</option>
+          <option>Masters</option>
+          <option>PhD</option>
+        </select>
+      </fieldset>
+      <fieldset>
         <p>What is your interest? Name three</p>
         <input type="text" name="interest-1" placeholder="Interest 1" /><br /><!-- goal: have auto-complete with pre-defined interest -->
-        <input type="text" name="interest-2" placeholder="Interest 2" /><br />
-        <input type="text" name="interest-3" placeholder="Interest 3" /><br />
+        <input type="text" name="interest-2" placeholder="Interest 2" /><br/>
+        <input type="text" name="interest-3" placeholder="Interest 3" /><br/>
       </fieldset>
-      <br />
-      <input type="submit" value="Register" />
+      <br/>
+      <input type="submit" value="Register"/>
     </form>
     <?php include_once 'include/partial/footer.php'; ?>
   </body>
