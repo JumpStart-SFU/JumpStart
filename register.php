@@ -117,34 +117,10 @@ if (isset($_POST['username']) ||
         <input type="radio" name="sex" value="Female" />Female <br/>
         <input type="radio" name="sex" value="Other" />Other <br/>
       </fieldset>
-      <fieldset>
-        <p>What is your faculty?</p>
-        <option>
-          <select></select>
-        </option>
-        
-        <p>What is your concentration></p>
-        <option>
-          <select></select>
-        </option>
-        
-        <p>What year are you in?</p>
-        <select>
-          <option>1st Year</option>
-          <option>2nd Year</option>
-          <option>3rd Year</option>
-          <option>4th Year</option>
-          <option>5th Year</option>
-          <option>Masters</option>
-          <option>PhD</option>
-        </select>
-      </fieldset>
-      <fieldset>
-        <p>What is your interest? Name three</p>
-        <input type="text" name="interest-1" placeholder="Interest 1" /><br /><!-- goal: have auto-complete with pre-defined interest -->
-        <input type="text" name="interest-2" placeholder="Interest 2" /><br/>
-        <input type="text" name="interest-3" placeholder="Interest 3" /><br/>
-      </fieldset>
+      
+      <?php require_once('include/partial/register/campus.php'); ?>
+      <?php require_once('include/partial/register/personality.php'); ?>
+      
       <br/>
       <input type="submit" value="Register"/>
     </form>
