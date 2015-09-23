@@ -43,7 +43,7 @@ function db_create_table($conn, $table, $detail) {
     $result = $conn->query($query);
   
     if (!($result)) {
-      die("Database access failed: " . $conn->error);
+      die("Database access failed: " . $conn->error . " with the following query: <br/>$query");
     }
   }
 }
@@ -51,28 +51,21 @@ function db_create_table($conn, $table, $detail) {
 /**
  * Inserts data into table
  */
-function db_insert($conn, $table, $data, $column = NULL, $isRepeat = TRUE) {
+function db_insert($conn, $table, $data, $column, $isRepeat = FALSE) {
   if ($conn->connect_error) {
     print "Something went wrong with the connection<br/>";
   }
 
-  if (!(empty($table) && empty($data))) {
+  if (!(empty($table) && empty($data) && empty($column))) {
     if ($isRepeat == TRUE || !(db_check_duplicate($conn, $table, current($data), current($column)))) {
       $query = "INSERT INTO $table ";
-    
-      // $column is an array
-      if (is_array($column)) {
-        $query .= "(";
       
-        foreach ($column as $entry) {
-          $query .= "$entry, ";
-        }
-        $query = trim($query, ', ') . ") ";
+      $query .= "(";
+      foreach ($column as $entry) {
+        $query .= "$entry, ";
       }
-    
-      else {
-        $query .= "$column ";
-      }
+      
+      $query = trim($query, ', ') . ") ";
     
       // $data is an array
       if (is_array($data)) {
@@ -90,7 +83,7 @@ function db_insert($conn, $table, $data, $column = NULL, $isRepeat = TRUE) {
     
       $result = $conn->query($query);
       if (!($result)) {
-        die("Database access failed: " . $conn->error);
+        die("Database access failed: " . $conn->error . " with the following query: <br/>$query");
       }
     }
   }
@@ -188,7 +181,7 @@ function db_check_duplicate($conn, $table, $data, $column) {
     print "Something went wrong with the connection<br/>";
   }
   
-  $query = "SELECT id FROM `$table` WHERE $column = '$data'";
+  $query = "SELECT * FROM `$table` WHERE $column = '$data'";
   $result = $conn->query($query);
   
   if ($result->num_rows > 0) {
