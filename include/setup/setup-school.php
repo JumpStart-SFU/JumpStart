@@ -54,7 +54,7 @@ function setup_school_create_tables($conn = NULL) {
 /**
  * Insert default values into predefined tables
  */
-function setup_school_insert_default($conn = NULL) {
+function setup_school_insert_default($conn) {
   if ($conn === NULL) {
     $conn = db_connect();
   }

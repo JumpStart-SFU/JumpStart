@@ -23,8 +23,11 @@ function setup_users_create_tables($conn = NULL) {
     "PRIMARY KEY (uid)",
   ));
   
-  // Insert default adminstrator 'admin'
-  db_insert($conn, 'users', array('admin', 'marshmellow', 'jinn@sfu.ca'), array('username', 'password', 'email'));
+  // User role
+  db_create_table($conn, 'users_roles', array(
+    "uid int NOT NULL",
+    "role_tid int NOT NULL",
+  ));
   
   // Profile
   db_create_table($conn, 'users_profile', array(
@@ -70,5 +73,16 @@ function setup_users_create_tables($conn = NULL) {
     "access_code varchar(12) NOT NULL",
     "PRIMARY KEY (uid)",
   ));
+
+  setup_users_insert_default($conn);
+}
+
+/**
+ * Insert default values into predefined tables
+ */
+function setup_users_insert_default($conn) {
+  // Insert default adminstrator 'admin'
+  db_insert($conn, 'users', array('1', 'admin', 'marshmellow', 'jinn@sfu.ca'), array('status', 'username', 'password', 'email'));
+  db_insert($conn, 'users', array('1', '1'), array('uid', 'role_tid'));
 }
 ?>
