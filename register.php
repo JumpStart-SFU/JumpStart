@@ -4,66 +4,43 @@
  */
 
 require_once('include/database/database-basic.php');
-require_once('include/database/database-users.php');
+//require_once('include/database/database-basic.php');
+require_once('include/backend/backend_general.php');
 require_once('include/database/validate.php');
 
 $conn = db_connect();
 $fail = NULL;
 
-if (isset($_POST['username']) ||
+if (isset($_POST['email']) ||
     isset($_POST['fullname']) ||
     isset($_POST['password_1']) ||
     isset($_POST['sex'])) {
-  $table = 'users_sfu';
-  $username = $_POST['username'];
+  $email = $_POST['email'];
   $fullname = $_POST['fullname'];
   $password_1 = $_POST['password_1'];
   $password_2 = $_POST['password_2'];
   $sex = $_POST['sex'];
-  $interest_1 = $_POST['interest-1'];
-  $interest_2 = $_POST['interest-2'];
-  $interest_3 = $_POST['interest-3'];
   
-  $fail = validate_username($username);
+  $fail = validate_email($email);
   $fail .= validate_password($password_1, $password_2);
   $fail .= validate_fullname($fullname);
   $fail .= validate_sex($sex);
   
   // No errors
   if ($fail === "") {
-    $data = array(
-      "username" => sanitize_MySQL($conn, $username),
-      "fullname" => sanitize_MySQL($conn, $fullname),
-      "password" => sanitize_MySQL($conn, crypt($password_1, 'moneys')),
-      "sex" => sanitize_MySQL($conn, $sex),
-      "interest-1" => sanitize_MySQL($conn, $interest_1),
-      "interest-2" => sanitize_MySQL($conn, $interest_2),
-      "interest-3" => sanitize_MySQL($conn, $interest_3),
-    );
+    $username = sanitize_MySQL($conn, backend_general_convert_to_username($email));
+    $email = sanitize_MySQL($conn, $email);
+    $password = sanitize_MySQL($conn, crypt($password_1, $email));
+    $fullname = sanitize_MySQL($conn, $fullname);
+    $sex = sanitize_MySQL($conn, $sex);
+    $campus = sanitize_MySQL($conn, backend_general_convert_to_domain($email));
     
-    /*
-    // Mail isn't working
-    $to = $username . '@sfu.ca';
-    $subject = 'hi';
-    $body = 'i am body';
-    $headers = 'From: admin@jumpstart.ca';
+    //$uid = db_insert($conn, 'users', array($username, $password, $email), array('username', 'password', 'email'), FALSE, TRUE);
+    //db_insert($conn, 'users_profile', array($uid, $fullname, $sex), array('uid', 'fullname', 'sex'));
     
-    if (mail($to, $subject, $body, $headers)) {
-      print 'mail sent';
-    }
-  
-    else {
-      print 'mail not sent';
-    }
-    */
-  
-    db_table_user_insert($conn, $table, $data);
     exit;
   }
-  
-  
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -94,34 +71,19 @@ if (isset($_POST['username']) ||
   </script>
   
   <body>
-    <h1>Select a Campus</h1>
-    <select>
-      <option label="SFU" value="sfu" selected>Simon Fraser University</option>
-      <option label="UBC" value="ubc">University of British Columbia</option>
-    </select>
-    
-    <br/>
     <?php print $fail; ?>
     <form action="register.php" method="post" onSubmit="return validate(this)">
-      <fieldset>
-        <p>Enter your student id</p>
-        <input type="text" name="username" maxlength="32" placeholder="Enter your computing id" />@sfu.ca<br/>
-        <p>Enter your password</p>
-        <input type="password" name="password_1" placeholder="Enter your password" /><br/>
-        <p>Re-enter your password</p>
-        <input type="password" name="password_2" placeholder="Re-enter your password" /><br/>
-        <p>Enter full name</p>
-        <input type="text" name="fullname" placeholder="John Adam" /><br/>
-        <p>Enter your gender</p>
-        <input type="radio" name="sex" value="Male" />Male <br/>
-        <input type="radio" name="sex" value="Female" />Female <br/>
-        <input type="radio" name="sex" value="Other" />Other <br/>
-      </fieldset>
-      
-      <?php require_once('include/partial/register/campus.php'); ?>
-      <?php require_once('include/partial/register/personality.php'); ?>
-      
+      <input type="text" name="fullname" placeholder="Full Name"/><br/>
+      <input type="email" name="email" maxlength="64" placeholder="Enter your campus Email"/><br/>
+      <input type="password" name="password_1" placeholder="Password" /><br/>
+      <input type="password" name="password_2" placeholder="Re-enter your password" /><br/>
+      <input type="radio" name="sex" value="Male" />Male 
+      <input type="radio" name="sex" value="Female" />Female 
+      <input type="radio" name="sex" value="Other" />Other
       <br/>
+      
+      <p class="small-print">By clicking 'Register', you agree to our terms &amp; conditions, and to our Cookie policies.</p>
+      
       <input type="submit" value="Register"/>
     </form>
     <?php include_once 'include/partial/footer.php'; ?>

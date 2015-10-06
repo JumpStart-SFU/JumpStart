@@ -51,7 +51,7 @@ function db_create_table($conn, $table, $detail) {
 /**
  * Inserts data into table
  */
-function db_insert($conn, $table, $data, $column, $isRepeat = FALSE) {
+function db_insert($conn, $table, $data, $column, $isRepeat = FALSE, $getID = FALSE) {
   if ($conn->connect_error) {
     print "Something went wrong with the connection<br/>";
   }
@@ -84,6 +84,10 @@ function db_insert($conn, $table, $data, $column, $isRepeat = FALSE) {
       $result = $conn->query($query);
       if (!($result)) {
         die("Database access failed: " . $conn->error . " with the following query: <br/>$query");
+      }
+      
+      if ($getID) {
+        return (mysql_insert_id());
       }
     }
   }

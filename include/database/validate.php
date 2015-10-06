@@ -56,4 +56,8 @@ function validate_sex($sex) {
   return ($sex == "") ? "Sex is empty<br/>" : "";
 }
 
+function validate_email($email) {
+  return ($email == "") ? "Email is empty<br/>" : "";
+}
+
 ?>

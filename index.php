@@ -7,6 +7,7 @@ require_once('setup.php');
 require_once('include/database/database-basic.php');
 require_once('include/database/database-users.php');
 require_once('include/database/validate.php');
+require_once('include/backend/backend_general.php');
 
 initialise_JumpStart();
 $conn = db_connect();
@@ -43,25 +44,9 @@ if (isset($_COOKIE['username']) && isset($_COOKIE['password'])) {
 // Form was submitted
 if (isset($_POST['email']) && isset($_POST['password'])) {
   $email = sanitize_MySQL($conn, $_POST['email']);
-  $password = crypt(sanitize_MySQL($conn, $_POST['password']), 'moneys'); // Encrypt password
-
-  if (substr($email, -7) === '@sfu.ca') {
-    $username = sanitize_MySQL($conn, substr($email, 0, -7));
-    $table = 'users_sfu';
-  }
-  
-  elseif (substr($email, -7) === '@ubc.ca') {
-    $username = sanitize_MySQL($conn, substr($email, 0, -7));
-    $table = 'users_ubc';
-  }
-  
-  else {
-    $username =  NULL;
-    $password = NULL;
-    $table = NULL;
-  }
-  
-  $result = db_table_user_read($conn, $table, $username, $password);
+  $password = crypt(sanitize_MySQL($conn, $_POST['password']), $email); // Encrypt password
+  $username = backend_general_convert_to_username($email);
+  $result = db_table_user_read($conn, 'users', $username, $password);
   
   if ($result) {
     setcookie('username', $username, NULL, '/');
@@ -96,11 +81,12 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     <img src="" />
   </div>
   <div class="form">
-    <form action="index.php" method="post">
+    <form id="login" action="index.php" method="post">
       <input type="email" name="email" placeholder="Enter your campus email" /><br/>
       <input type="password" name="password" placeholder="Enter your password" /><br/>
-      <a href="register.php"><input type="button" value="Register" /></a>
-      <input type="submit" value="Log in" /><br/>
+      
+      <input type="submit" value="Sign in" /><br/>
+      <a href="register.php"><input type="button" value="Create an Account" /></a>
     </form>
   </div>
   <?php include_once 'include/partial/footer.php'; ?>

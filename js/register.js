@@ -29,3 +29,7 @@ function validateFullname(fullname) {
 function validateSex(sex) {
   return (sex == "") ? "Sex is empty.\n" : "";
 }
+
+function validateEmail(email) {
+  return (email=="") ? "Email is empty.\n" : "";
+}
