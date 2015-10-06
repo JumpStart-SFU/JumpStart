@@ -3,13 +3,11 @@
  * @file
  * 
  */
-require_once('setup.php');
 require_once('include/database/database-basic.php');
 require_once('include/database/database-users.php');
 require_once('include/database/validate.php');
 require_once('include/backend/backend_general.php');
 
-initialise_JumpStart();
 $conn = db_connect();
 
 $activate = FALSE;
@@ -72,9 +70,10 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
   <!-- META STUFF -->
   <meta name="description" content="Meet new friends on your local campus!" />
   <meta name="viewport" content="width-device-width, initial-scale=1" />
-  <title>JumpStart</title>
+  <title>Conextus</title>
   <!-- CSS Stuff -->
   <link rel="stylesheet" type="text/css" href="css/index.css" />
+  <link rel="shortcut icon" href="http://sstatic.net/stackoverflow/img/favicon.ico">
 </head>
 <body>
   <div class="homepage-main-logo">
