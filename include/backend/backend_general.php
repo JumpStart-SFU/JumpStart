@@ -22,7 +22,16 @@ function backend_general_convert_to_domain($email) {
   return $domain;
 }
 
-function backend_general() {
+/**
+ * Sets cookie
+ */
+function backend_general_set_cookie() {
+}
+
+/**
+ * Removes cookie
+ */
+function backedn_general_remove_cookie() {
 }
 
 ?>

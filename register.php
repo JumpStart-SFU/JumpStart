@@ -35,10 +35,11 @@ if (isset($_POST['email']) ||
     $sex = sanitize_MySQL($conn, $sex);
     $campus = sanitize_MySQL($conn, backend_general_convert_to_domain($email));
     
-    //$uid = db_insert($conn, 'users', array($username, $password, $email), array('username', 'password', 'email'), FALSE, TRUE);
-    //db_insert($conn, 'users_profile', array($uid, $fullname, $sex), array('uid', 'fullname', 'sex'));
+    $uid = db_insert($conn, 'users', array($username, $password, $email), array('username', 'password', 'email'), FALSE, TRUE);
+    db_insert($conn, 'users_profile', array($uid, $fullname, $sex), array('uid', 'fullname', 'sex'));
     
-    exit;
+    header("Location: index.php");
+    die();
   }
 }
 ?>
@@ -48,9 +49,10 @@ if (isset($_POST['email']) ||
   <head>
     <!-- META STUFF -->
     <meta name="viewport" content="width-device-width, initial-scale=1" />
-    <title>JumpStart | Register</title>
+    <title>Conextus | Register</title>
     <!-- CSS Stuff -->
     <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="shortcut icon" href="http://sstatic.net/stackoverflow/img/favicon.ico">
   </head>
   <script src="js/register.js">
     function validate(form) {

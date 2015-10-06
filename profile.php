@@ -5,6 +5,7 @@
  */
 
 require_once('include/database/database-basic.php');
+require_once('include/backend/backend_general.php');
 
 $conn = db_connect();
 
@@ -14,9 +15,10 @@ $conn = db_connect();
 <head>
   <!-- META STUFF -->
   <meta name="viewport" content="width-device-width, initial-scale=1" />
-  <title><?php print $_COOKIE['username']; ?> | JumpStart</title>
+  <title><?php print $_COOKIE['username']; ?> | Conextus</title>
   <!-- CSS Stuff -->
   <link rel="stylesheet" type="text/css" href="css/index.css" />
+  <link rel="shortcut icon" href="http://sstatic.net/stackoverflow/img/favicon.ico">
 </head>
 <body>
   <?php require_once('include/partial/header.php'); ?>
