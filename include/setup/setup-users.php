@@ -82,7 +82,7 @@ function setup_users_create_tables($conn = NULL) {
  */
 function setup_users_insert_default($conn) {
   // Insert default adminstrator 'admin'
-  db_insert($conn, 'users', array('1', 'admin', 'marshmellow', 'jinn@sfu.ca'), array('status', 'username', 'password', 'email'));
+  db_insert($conn, 'users', array('1', 'admin', 'marshmellow', 'jin8383@gmail.com'), array('status', 'username', 'password', 'email'));
   db_insert($conn, 'users', array('1', '1'), array('uid', 'role_tid'));
 }
 ?>

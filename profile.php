@@ -60,7 +60,7 @@ $conn = db_connect();
     
       <div class="personality">
         <div class="mbti">
-          MBTI: <?php print 'INTJ'; ?>
+          MBTI: 
         </div>
         
         <div class="">

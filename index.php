@@ -20,9 +20,8 @@ $password = NULL;
 if (isset($_COOKIE['username']) && isset($_COOKIE['password'])) {
   $username = $_COOKIE['username'];
   $password = $_COOKIE['password'];
-  $table = $_COOKIE['table'];
   
-  $result = db_table_user_read($conn, $table, $username, $password);
+  $result = db_table_user_read($conn, 'users', $username, $password);
   
   // Redirects to profile
   if ($result) {
@@ -34,10 +33,8 @@ if (isset($_COOKIE['username']) && isset($_COOKIE['password'])) {
   else {
     setcookie('username', $username, time() - 2592000, '/');
     setcookie('password', $password, time() - 2592000, '/');
-    setcookie('table', $table, time() - 2592000, '/');
   }
 }
-
 
 // Form was submitted
 if (isset($_POST['email']) && isset($_POST['password'])) {
@@ -49,7 +46,6 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
   if ($result) {
     setcookie('username', $username, NULL, '/');
     setcookie('password', $password, NULL, '/');
-    setcookie('table', $table, NULL, '/');
     
     // redirect to the user's profile
     header("Location: profile.php");
@@ -76,9 +72,8 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
   <link rel="shortcut icon" href="http://sstatic.net/stackoverflow/img/favicon.ico">
 </head>
 <body>
-  <div class="homepage-main-logo">
-    <img src="" />
-  </div>
+  <?php require_once('include/partial/header.php'); ?>
+  
   <div class="form">
     <form id="login" action="index.php" method="post">
       <input type="email" name="email" placeholder="Enter your campus email" /><br/>

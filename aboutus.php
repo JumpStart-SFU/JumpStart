@@ -17,7 +17,7 @@
   <link rel="shortcut icon" href="http://sstatic.net/stackoverflow/img/favicon.ico">
 </head>
 <body>
-  <a href="index.php">Home</a>
+  <?php require_once('include/partial/header.php'); ?>
   <?php include_once 'include/partial/footer.php'; ?>
 </body>
 </html>
